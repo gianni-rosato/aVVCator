@@ -31,25 +31,21 @@ cleanup:
   - '*.a'
 
 modules:
-  - name: svt-av1-psy
+  - name: VVenC
     buildsystem: cmake-ninja
     builddir: true
     config-opts:
       - "-DCMAKE_BUILD_TYPE=Release"
       - "-DCMAKE_CXX_FLAGS=-O3 -flto"
       - "-DCMAKE_C_FLAGS=-O3 -flto"
-      - "-DBUILD_SHARED_LIBS=ON"
-      - "-DBUILD_APPS=OFF"
-      - "-DBUILD_DEC=OFF"
-      - "-DBUILD_ENC=ON"
-      - "-DBUILD_TESTING=OFF"
+      - "-DBUILD_SHARED_LIBS=1"
     cleanup:
       - "/include"
       - "/lib/pkgconfig"
     sources:
       - type: git
-        url: https://github.com/gianni-rosato/svt-av1-psy
-        commit: 5d60263a420305665c0d0a303c815cd5d3daf950
+        url: https://github.com/fraunhoferhhi/vvenc
+        commit: 8fe23c75db1b7d1766d9f19d16995959d65c012e
 
   - name: ffmpeg
     config-opts:
@@ -57,12 +53,12 @@ modules:
       - --enable-gpl
       - --enable-libdav1d
       - --enable-libopus
-      - --enable-libsvtav1
+      - --enable-libvvenc
     buildsystem: autotools
     sources:
       - type: git
-        url: https://git.ffmpeg.org/ffmpeg.git
-        commit: e38092ef9395d7049f871ef4d5411eb410e283e0
+        url: https://github.com/MartinEesmaa/FFmpeg-FixVVC
+        commit: b4388ed2f3cca298a49022a7b9a92626aac68c98
 
   - build-commands:
     - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
