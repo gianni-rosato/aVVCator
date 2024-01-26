@@ -1,5 +1,5 @@
-app-id: net.natesales.Aviator
-command: aviator
+app-id: net.natesales.aVVCator
+command: avvcator
 sdk: org.gnome.Sdk
 runtime: org.gnome.Platform
 runtime-version: "45"
@@ -16,8 +16,8 @@ build-options:
   env: 
     CARGO_HOME: /run/build/done/cargo
     PROTOC: /app/bin/protoc
-  prepend-ld-library-path: /usr/lib/sdk/llvm16/lib
-  prepend-path: /usr/lib/sdk/llvm16/bin
+  prepend-ld-library-path: /usr/lib/sdk/llvm17/lib
+  prepend-path: /usr/lib/sdk/llvm17/bin
 
 cleanup:
   - /include
@@ -35,6 +35,10 @@ modules:
     buildsystem: cmake-ninja
     builddir: true
     config-opts:
+      - "-DCMAKE_C_COMPILER=clang"
+      - "-DCMAKE_CXX_COMPILER=clang++"
+      - "-DCMAKE_EXE_LINKER_FLAGS=-fuse-ld=lld"
+      - "-DCMAKE_SHARED_LINKER_FLAGS=-fuse-ld=lld"
       - "-DCMAKE_BUILD_TYPE=Release"
       - "-DCMAKE_CXX_FLAGS=-O3 -flto"
       - "-DCMAKE_C_FLAGS=-O3 -flto"
@@ -57,8 +61,8 @@ modules:
     buildsystem: autotools
     sources:
       - type: git
-        url: https://github.com/MartinEesmaa/FFmpeg-FixVVC
-        commit: b4388ed2f3cca298a49022a7b9a92626aac68c98
+        url: https://github.com/MartinEesmaa/FFmpeg-VVC
+        commit: 722512a58551ba00eb51c92d89abffb9fd80bda0
 
   - build-commands:
     - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
@@ -82,7 +86,7 @@ modules:
       type: file
       url: https://files.pythonhosted.org/packages/ea/b6/ba9d4b4ca272222f2858c8d2fac6ca9d74fb6494ea0449a3a07dafc07c56/ffmpeg_progress_yield-0.7.8-py2.py3-none-any.whl
 
-  - name: aviator
+  - name: aVVCator
     builddir: true
     buildsystem: meson
     sources:
