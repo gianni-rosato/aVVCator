@@ -3,7 +3,7 @@
     <requires lib="gtk" version="4.0"/>
     <requires lib="libadwaita" version="1.4.0"/>
     <template class="OnboardWindow" parent="AdwWindow">
-        <property name="title" translatable="yes">aVVCator</property>
+        <property name="title" translatable="yes">avvcator</property>
         <property name="resizable">False</property>
         <property name="deletable">True</property>
         <property name="modal">True</property>

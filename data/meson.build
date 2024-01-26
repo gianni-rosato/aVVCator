@@ -1,8 +1,8 @@
-install_data('net.natesales.Aviator.desktop',
+install_data('net.natesales.avvcator.desktop',
   install_dir: get_option('datadir') / 'applications',
 )
 
-install_data('net.natesales.Aviator.metainfo.xml',
+install_data('net.natesales.avvcator.metainfo.xml',
   install_dir: get_option('datadir') / 'metainfo',
 )
 

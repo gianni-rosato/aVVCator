@@ -4,16 +4,16 @@
   <project_license>GPL-3.0-or-later</project_license>
   <content_rating type="oars-1.1"/>
 
-  <id>net.natesales.aVVCator</id>
-  <launchable type="desktop-id">net.natesales.aVVCator.desktop</launchable>
-  <translation type="gettext">avivator</translation>
+  <id>net.natesales.avvcator</id>
+  <launchable type="desktop-id">net.natesales.avvcator.desktop</launchable>
+  <translation type="gettext">avvcator</translation>
 
-  <name>aVVCator</name>
+  <name>avvcator</name>
   <summary>Your Video Copilot: AV1/OPUS Video Encoder</summary>
 
   <description>
     <p>
-      aVVCator enables simple, easy-to-use video encoding for the Fraunhofer's most advanced video codec, VVC. Encode your favorite media into super efficient files with incredible quality per bit, powered by the VVenC encoder with AAC for audio encoding. The sky's the limit for your old home video collection &amp; large 4k smartphone videos, and you can fly in style with a beautiful libadwaita interface. Take off with aVVCator!
+      avvcator enables simple, easy-to-use video encoding for the Fraunhofer's most advanced video codec, VVC. Encode your favorite media into super efficient files with incredible quality per bit, powered by the VVenC encoder with AAC for audio encoding. The sky's the limit for your old home video collection &amp; large 4k smartphone videos, and you can fly in style with a beautiful libadwaita interface. Take off with avvcator!
     </p>
   </description>
 
@@ -28,7 +28,7 @@
   </supports>
 
   <provides>
-    <binary>aviator</binary>
+    <binary>avvcator</binary>
   </provides>
 
   <developer_name translatable="no">Gianni Rosato</developer_name>
@@ -172,9 +172,9 @@
     </release>
   </releases>
 
-  <url type="homepage">https://github.com/natesales/aviator</url>
-  <url type="bugtracker">https://github.com/natesales/aviator/issues</url>
-  <url type="vcs-browser">https://github.com/natesales/aviator</url>
-  <url type="translate">https://github.com/gianni-rosato/aviator/tree/main/po</url>
-  <url type="donation">https://github.com/natesales</url>
+  <url type="homepage">https://github.com/gianni-rosato/avvcator</url>
+  <url type="bugtracker">https://github.com/gianni-rosato/avvcator/issues</url>
+  <url type="vcs-browser">https://github.com/gianni-rosato/avvcator</url>
+  <url type="translate">https://github.com/gianni-rosato/avvcator/tree/main/po</url>
+  <url type="donation">https://github.com/gianni-rosato</url>
 </component>

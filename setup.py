@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='Aviator',
+    name='avvcator',
     version='0.5.0',
     description='AV1/OPUS Encoder GUI',
     author='Gianni Rosato',

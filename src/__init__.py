@@ -80,13 +80,13 @@ def humanize(seconds):
 
 def notify(text):
     application = Gtk.Application.get_default()
-    notification = Gio.Notification.new(title="aVVCator")
+    notification = Gio.Notification.new(title="avvcator")
     notification.set_body(text)
     application.send_notification(None, notification)
 
 
 def first_open():
-    startup_file = os.path.join(Path.home(), ".var/app/net.natesales.aVVCator/startup.dat")
+    startup_file = os.path.join(Path.home(), ".var/app/net.natesales.avvcator/startup.dat")
     if os.path.exists(startup_file):
         return False
     else:
@@ -145,7 +145,7 @@ class OnboardWindow(Adw.Window):
         super().__init__(**kwargs)
         self.image.set_from_file(
             filename=str(
-                BASE_DIR.joinpath('net.natesales.aVVCator-splash.png')
+                BASE_DIR.joinpath('net.natesales.avvcator-splash.png')
             )
         )
 
@@ -158,7 +158,7 @@ class OnboardWindow(Adw.Window):
 
 @Gtk.Template(filename=str(BASE_DIR.joinpath("window.ui")))
 class MainWindow(Adw.Window):
-    __gtype_name__ = "aVVCatorWindow"
+    __gtype_name__ = "avvcatorWindow"
 
     # Video page
     source_file_label = Gtk.Template.Child()
@@ -419,7 +419,7 @@ class MainWindow(Adw.Window):
                 "-ac", "2" if self.downmix_switch.get_state() else "0",
                 "-map", "0:s?" if self.container == "mkv" else "-0:s",
                 "-c:s", "copy",
-                "-metadata", "comment=\"Encoded with aVVCator\"",
+                "-metadata", "comment=\"Encoded with avvcator\"",
                 output,
             ]
 
@@ -466,14 +466,14 @@ class App(Adw.Application):
 
     def about_dialog(self, action, user_data):
         about = Adw.AboutWindow(transient_for=self.win,
-                                application_name="aVVCator",
-                                application_icon="net.natesales.aVVCator",
+                                application_name="avvcator",
+                                application_icon="net.natesales.avvcator",
                                 developer_name="Nate Sales & Gianni Rosato",
                                 version=info.version,
                                 copyright="Copyright © 2024 Nate Sales &amp; Gianni Rosato",
                                 license_type=Gtk.License.GPL_3_0,
-                                website="https://github.com/gianni-rosato/aVVCator",
-                                issue_url="https://github.com/gianni-rosato/aVVCator/issues")
+                                website="https://github.com/gianni-rosato/avvcator",
+                                issue_url="https://github.com/gianni-rosato/avvcator/issues")
         # about.set_translator_credits(translators())
         about.set_developers(["Nate Sales <nate@natesales.net>","Gianni Rosato <grosatowork@proton.me>","Trix<>"])
         about.set_designers(["Gianni Rosato <grosatowork@proton.me>"])
@@ -499,5 +499,5 @@ class App(Adw.Application):
         exit()
 
 
-app = App(application_id="net.natesales.aVVCator")
+app = App(application_id="net.natesales.avvcator")
 app.run(sys.argv)

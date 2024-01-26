@@ -1,4 +1,4 @@
-app-id: net.natesales.aVVCator
+app-id: net.natesales.avvcator
 command: avvcator
 sdk: org.gnome.Sdk
 runtime: org.gnome.Platform
@@ -86,7 +86,7 @@ modules:
       type: file
       url: https://files.pythonhosted.org/packages/ea/b6/ba9d4b4ca272222f2858c8d2fac6ca9d74fb6494ea0449a3a07dafc07c56/ffmpeg_progress_yield-0.7.8-py2.py3-none-any.whl
 
-  - name: aVVCator
+  - name: avvcator
     builddir: true
     buildsystem: meson
     sources:
