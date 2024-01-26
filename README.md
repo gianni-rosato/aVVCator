@@ -1,9 +1,9 @@
 <div align="center">
-<h1>Aviator</h1>
+<h1>aVVCator</h1>
 
-A Flatpak-first easy-to-use GUI for encoding with SVT-AV1-PSY & libopus.
+A Flatpak-first easy-to-use GUI for encoding with VVenC & aac.
 
-<img src="assets/aviator_splash2.avif" alt="Splash" width=450/>
+<img src="assets/avvcator-splash2.avif" alt="Splash" width=450/>
 <br>
 <br>
 
@@ -16,9 +16,9 @@ A Flatpak-first easy-to-use GUI for encoding with SVT-AV1-PSY & libopus.
 
 ## About
 
-Aviator enables simple & easy video encoding for the world's most advanced open video codec, AV1. Encode your favorite media into super efficient files with incredible quality per bit, powered by our custom SVT-AV1-PSY encoder with libopus for audio encoding. The sky's the limit for your old home video collection, large 4k smartphone videos, screen recordings, Blu-ray rips, you name it - take off with Aviator!
+Aviator enables simple & easy video encoding for Fraunhofers's most advanced video codec, VVC. Encode your favorite media into super efficient files with incredible quality per bit, powered by the VVenC encoder with AAC audio encoding. The sky's the limit for your old home video collection, large 4k smartphone videos, screen recordings, Blu-ray rips, you name it - take off with aVVCator!
 
-Aviator is designed to be a no frills, easy to use AV1 encoding GUI that any beginner can pick up and immediately understand how to use. 
+aVVCator is designed to be a no frills, easy to use AV1 encoding GUI that any beginner can pick up and immediately understand how to use. 
 
 ## Installation
 
@@ -33,20 +33,16 @@ Aviator is available on Flathub. You can learn how to set up Flatpak on your dis
 Make sure you have all required dependencies before building from source. This includes `flatpak-builder`, `python3` & `gcc`.
 
 ```bash
-git clone https://github.com/gianni-rosato/aviator
-cd aviator
+git clone https://github.com/gianni-rosato/aVVCator
+cd aVVCator/
 make
 ```
 
 Third party packaging formats are not officially supported by Aviator, and if you encounter bugs while using them please do not submit them as issues; we do not officially support third party packaged versions of Aviator.
 
-## Why AV1?
+## Why VVC?
 
-[AV1](https://wiki.x266.mov/docs/video/AV1) aims to be royalty-free efficient alternative to older codecs like [H.265](https://wiki.x266.mov/docs/video/HEVC) and [H.264](https://wiki.x266.mov/docs/video/AVC).
-
-To encode AV1 video, we've traditionally used the mainline [SVT-AV1](https://wiki.x266.mov/docs/encoders/SVT-AV1) production encoder to power scalable, fast, and feature-rich encoding in Aviator. As of early 2024, we've opted to switch to [SVT-AV1-PSY](https://github.com/gianni-rosato/svt-av1-psy) in order to maintain more control over the encoder's development and optimize for visual fidelity as much as possible. SVT-AV1-PSY promises users a fast, perceptually optimized AV1 encoder implementation that is designed to effectively take advantage of system resources.
-
-Aviator comes bundled with its own version of FFmpeg that is capable decoding videos, upscaling & downscaling videos with the sharp Catmull-Rom scaling algorithm, & encoding audio using the Opus audio codec via libopus.
+good question :P lol
 
 ## Aviator's Defaults
 
