@@ -83,4 +83,4 @@ Let us know if you have any issues in our Issues section. Thank you for using Av
 
 ## Credits
 
-Actively developed by [Nate Sales](https://github.com/natesales/) & [Gianni Rosato](https://github.com/gianni-rosato/)
+Actively developed by [Gianni Rosato](https://github.com/gianni-rosato/).

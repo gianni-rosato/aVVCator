@@ -51,33 +51,6 @@ def humanize(seconds):
         else:
             return ", ".join(duration[:-1]) + " and " + duration[-1]
 
-
-# metadata returns the file's resolution and audio bitrate
-# def metadata(file) -> (float, float, float):
-#     try:
-#         cmd = [
-#             "ffprobe",
-#             "-v",
-#             "quiet",
-#             "-print_format",
-#             "json",
-#             "-show_format",
-#             "-show_streams",
-#             file,
-#         ]
-#         logging.debug("Running ffprobe: " + " ".join(cmd))
-#         x = subprocess.Popen(cmd, stdout=subprocess.PIPE).stdout.read()
-#         m = json.loads(x)
-#         streams = m["streams"]
-#         video = streams[0]
-#         audio = streams[1]
-
-#         return video["width"], video["height"], float(audio["sample_rate"]) / 1000
-#     except Exception as e:
-#         logging.error("Get metadata:", e)
-#         return 1536, 864, 48
-
-
 def notify(text):
     application = Gtk.Application.get_default()
     notification = Gio.Notification.new(title="avvcator")
@@ -86,7 +59,7 @@ def notify(text):
 
 
 def first_open():
-    startup_file = os.path.join(Path.home(), ".var/app/net.natesales.avvcator/startup.dat")
+    startup_file = os.path.join(Path.home(), ".var/app/net.natesales.aVVCator/startup.dat")
     if os.path.exists(startup_file):
         return False
     else:
@@ -165,12 +138,13 @@ class MainWindow(Adw.Window):
     resolution_width_entry = Gtk.Template.Child()
     resolution_height_entry = Gtk.Template.Child()
     crop_toggle = Gtk.Template.Child()
-    gop_toggle = Gtk.Template.Child()
-    # scaling_method = Gtk.Template.Child()
     crf_scale = Gtk.Template.Child()
-    speed_scale = Gtk.Template.Child()
-    grain_scale = Gtk.Template.Child()
-    denoise_toggle = Gtk.Template.Child()
+    speed_slower_button = Gtk.Template.Child()
+    speed_slow_button = Gtk.Template.Child()
+    speed_medium_button = Gtk.Template.Child()
+    speed_fast_button = Gtk.Template.Child()
+    speed_faster_button = Gtk.Template.Child()
+    speed_string = "medium"
 
     # Audio page
     bitrate_entry = Gtk.Template.Child()
@@ -182,10 +156,6 @@ class MainWindow(Adw.Window):
 
     # Export page
     output_file_label = Gtk.Template.Child()
-    warning_image_webm = Gtk.Template.Child()
-    container_mkv_button = Gtk.Template.Child()
-    container_webm_button = Gtk.Template.Child()
-    container = "mkv"
     encode_button = Gtk.Template.Child()
     encoding_spinner = Gtk.Template.Child()
     stop_button = Gtk.Template.Child()
@@ -194,19 +164,17 @@ class MainWindow(Adw.Window):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        # Default to MKV
-        self.container_webm_button.set_has_frame(False)
-        self.container_mkv_button.set_has_frame(True)
-        self.container = "mkv"
+        # Default to speed medium
+        self.speed_faster_button.set_has_frame(False)
+        self.speed_fast_button.set_has_frame(False)
+        self.speed_medium_button.set_has_frame(True)
+        self.speed_slow_button.set_has_frame(False)
+        self.speed_slower_button.set_has_frame(False)
+        self.speed_string = "medium"
 
         # Reset value to remove extra decimal
-        self.speed_scale.set_value(0)
-        self.speed_scale.set_value(6)
         self.crf_scale.set_value(0)
-        self.crf_scale.set_value(32)
-        self.grain_scale.set_value(0)
-        self.grain_scale.set_value(6)
-        self.grain_scale.set_value(0)
+        self.crf_scale.set_value(24)
         self.volume_scale.set_value(0)
         self.volume_scale.set_value(6)
         self.volume_scale.set_value(0)
@@ -230,16 +198,12 @@ class MainWindow(Adw.Window):
     @Gtk.Template.Callback()
     def empty_or_not_empty(self, switch, gboolean):
         if self.audio_copy_switch.get_state():
-            self.container_webm_button.set_sensitive(True)
             self.bitrate_entry.set_sensitive(True)
             self.audio_copy_switch.set_sensitive(True)
             self.loudnorm_toggle.set_sensitive(True)
             self.volume_scale.set_sensitive(True)
             self.downmix_switch.set_sensitive(True)
         else:
-            self.container_mkv_button.set_has_frame(True)
-            self.container_mkv("clicked")
-            self.container_webm_button.set_sensitive(False)
             self.bitrate_entry.set_sensitive(False)
             self.loudnorm_toggle.set_sensitive(False)
             self.volume_scale.set_sensitive(False)
@@ -255,7 +219,7 @@ class MainWindow(Adw.Window):
 
     @Gtk.Template.Callback()
     def open_source_file(self, button):
-        self.bitrate_entry.set_text(str(80))
+        self.bitrate_entry.set_text(str(192))
         FileSelectDialog(
             parent=self,
             select_multiple=False,
@@ -264,6 +228,51 @@ class MainWindow(Adw.Window):
             open_only=True,
             callback=self.handle_file_select
         )
+    
+    @Gtk.Template.Callback()
+    def speed_slower(self, button):
+        self.speed_faster_button.set_has_frame(False)
+        self.speed_fast_button.set_has_frame(False)
+        self.speed_medium_button.set_has_frame(False)
+        self.speed_slow_button.set_has_frame(False)
+        self.speed_slower_button.set_has_frame(True)
+        self.speed_string = "slower"
+
+    @Gtk.Template.Callback()
+    def speed_slow(self, button):
+        self.speed_faster_button.set_has_frame(False)
+        self.speed_fast_button.set_has_frame(False)
+        self.speed_medium_button.set_has_frame(False)
+        self.speed_slow_button.set_has_frame(True)
+        self.speed_slower_button.set_has_frame(False)
+        self.speed_string = "slow"
+
+    @Gtk.Template.Callback()
+    def speed_medium(self, button):
+        self.speed_faster_button.set_has_frame(False)
+        self.speed_fast_button.set_has_frame(False)
+        self.speed_medium_button.set_has_frame(True)
+        self.speed_slow_button.set_has_frame(False)
+        self.speed_slower_button.set_has_frame(False)
+        self.speed_string = "medium"
+
+    @Gtk.Template.Callback()
+    def speed_fast(self, button):
+        self.speed_faster_button.set_has_frame(False)
+        self.speed_fast_button.set_has_frame(True)
+        self.speed_medium_button.set_has_frame(False)
+        self.speed_slow_button.set_has_frame(False)
+        self.speed_slower_button.set_has_frame(False)
+        self.speed_string = "fast"
+
+    @Gtk.Template.Callback()
+    def speed_faster(self, button):
+        self.speed_faster_button.set_has_frame(True)
+        self.speed_fast_button.set_has_frame(False)
+        self.speed_medium_button.set_has_frame(False)
+        self.speed_slow_button.set_has_frame(False)
+        self.speed_slower_button.set_has_frame(False)
+        self.speed_string = "faster"
 
     # Export
 
@@ -276,20 +285,6 @@ class MainWindow(Adw.Window):
             selection_text="output",
             open_only=False,
         )
-
-    @Gtk.Template.Callback()
-    def container_mkv(self, button):
-        self.container_webm_button.set_has_frame(False)
-        self.warning_image_webm.set_visible(False)
-        self.container_mkv_button.set_has_frame(True)
-        self.container = "mkv"
-
-    @Gtk.Template.Callback()
-    def container_webm(self, button):
-        self.container_mkv_button.set_has_frame(False)
-        self.warning_image_webm.set_visible(True)
-        self.container_webm_button.set_has_frame(True)
-        self.container = "webm"
 
     def report_encode_finish(self,encode_start):
         encode_end = time.time() - encode_start
@@ -308,17 +303,10 @@ class MainWindow(Adw.Window):
         self.stop_button.set_visible(True)
 
         output = self.output_file_label.get_text()
-        if self.container == "mkv" and not output.endswith(".mkv"):
-            output += ".mkv"
-        elif self.container == "webm" and not output.endswith(".webm"):
-            output += ".webm"
-        # Trim file path
-        # if "/" in self.output_file_label.get_text():
-        #     self.output_file_absolute = self.output_file_label.get_text()
-        #     self.output_file_label.set_text(os.path.basename(self.output_file_absolute))
+        if not output.endswith(".mp4"):
+            output += ".mp4"
 
-        def run_in_thread():
-            
+        def run_in_thread():           
             width = height = None
 
             try:
@@ -344,29 +332,10 @@ class MainWindow(Adw.Window):
 
             method = "bicubic:param0=0:param1=1/2"
 
-            # if self.scaling_method.get_selected_item() == "Lanczos":
-            #     method = "lanczos"
-            # elif self.scaling_method.get_selected_item() == "Mitchell":
-            #     method = "bicubic:param0=1/3:param1=1/3"
-            # elif self.scaling_method.get_selected_item() == "BicubicDidee":
-            #     method = "bicubic:param0=-1/2:param1=1/4"
-            # else:
-            #     method = "bicubic:param0=0:param1=1/2"
-
             if width is not None and height is not None:
                 resolution = "crop" + f"={width}:{height}" if self.crop_toggle.get_active() else "scale" + f"={width}:{height}:flags={method}"
             else:
                 resolution = "-y"
-
-            if self.denoise_toggle.get_active():
-                denoise_val = 1
-            else:
-                denoise_val = 0
-
-            if self.gop_toggle.get_active():
-                gop_val = 1
-            else:
-                gop_val = 2
 
             if self.audio_copy_switch.get_state():
                 audio_filters = "-y"
@@ -396,6 +365,18 @@ class MainWindow(Adw.Window):
                     else:
                         audio_filters_prefix = "-af"
 
+            speed_int = 2
+            if self.speed_string == "faster":
+                speed_int = 0
+            if self.speed_string == "fast":
+                speed_int = 1
+            if self.speed_string == "medium":
+                speed_int = 2
+            if self.speed_string == "slow":
+                speed_int = 3
+            if self.speed_string == "slower":
+                speed_int = 4
+            
             cmd = [
                 "ffmpeg",
                 "-nostdin",
@@ -406,20 +387,19 @@ class MainWindow(Adw.Window):
                 "-vf" if width is not None and height is not None else "-y",
                 resolution,
                 "-map", "0:v",
-                "-c:v", "libsvtav1",
-                "-crf", str(int(self.crf_scale.get_value())),
-                "-preset", str(int(self.speed_scale.get_value())),
-                "-pix_fmt", "yuv420p10le",
-                "-svtav1-params", f"film-grain={int(self.grain_scale.get_value())}:" + "input-depth=10:tune=2:enable-qm=1:qm-min=0:enable-tf=0:keyint=300:scd=1:aq-mode=2:" + f"irefresh-type={gop_val}:" + f"film-grain-denoise={denoise_val}",
+                "-c:v", "libvvenc",
+                "-qp", str(int(self.crf_scale.get_value())),
+                "-preset", str(int(speed_int)),
+                "-period", "10",
                 "-map", "0:a?",
-                "-c:a", "copy" if self.audio_copy_switch.get_state() else "libopus",
+                "-c:a", "copy" if self.audio_copy_switch.get_state() else "aac",
                 "-b:a", self.bitrate_entry.get_text() + "K",
                 audio_filters_prefix,
                 audio_filters,
                 "-ac", "2" if self.downmix_switch.get_state() else "0",
-                "-map", "0:s?" if self.container == "mkv" else "-0:s",
+                "-map", "-0:s",
                 "-c:s", "copy",
-                "-metadata", "comment=\"Encoded with avvcator\"",
+                "-metadata", "comment=\"Encoded with aVVCator\"",
                 output,
             ]
 
@@ -466,9 +446,9 @@ class App(Adw.Application):
 
     def about_dialog(self, action, user_data):
         about = Adw.AboutWindow(transient_for=self.win,
-                                application_name="avvcator",
-                                application_icon="net.natesales.avvcator",
-                                developer_name="Nate Sales & Gianni Rosato",
+                                application_name="aVVCator",
+                                application_icon="net.natesales.aVVCator",
+                                developer_name="Gianni Rosato",
                                 version=info.version,
                                 copyright="Copyright © 2024 Nate Sales &amp; Gianni Rosato",
                                 license_type=Gtk.License.GPL_3_0,
@@ -480,8 +460,8 @@ class App(Adw.Application):
         about.add_acknowledgement_section(
             ("Special thanks to the encoding community!"),
             [
-                "AV1 For Dummies https://discord.gg/bbQD5MjDr3", "SVT-AV1-PSY Fork https://github.com/gianni-rosato/svt-av1-psy", "Codec Wiki https://wiki.x266.mov/"
-            ]    
+                "AV1 For Dummies https://discord.gg/bbQD5MjDr3", "H.266 / Versatile Video Coding Discord https://discord.gg/vHMG7tyey3", "Codec Wiki https://wiki.x266.mov/"
+            ]
         )
         about.add_legal_section(
             title='FFmpeg',
@@ -489,8 +469,8 @@ class App(Adw.Application):
             license_type=Gtk.License.GPL_3_0,
         )
         about.add_legal_section(
-            title='SVT-AV1',
-            copyright='Copyright © 2024 Alliance for Open Media',
+            title='VVenC',
+            copyright='Copyright © 2024 Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V. &amp; The VVenC Authors',
             license_type=Gtk.License.BSD,
         )
         about.present()
@@ -499,5 +479,5 @@ class App(Adw.Application):
         exit()
 
 
-app = App(application_id="net.natesales.avvcator")
+app = App(application_id="net.natesales.aVVCator")
 app.run(sys.argv)

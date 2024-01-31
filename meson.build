@@ -1,5 +1,5 @@
 project('avvcator',
-  version: '0.5.0',
+  version: '0.0.1',
   meson_version: '>= 0.59',
 )
 

@@ -1,4 +1,4 @@
-app-id: net.natesales.avvcator
+app-id: net.natesales.aVVCator
 command: avvcator
 sdk: org.gnome.Sdk
 runtime: org.gnome.Platform
@@ -49,13 +49,14 @@ modules:
     sources:
       - type: git
         url: https://github.com/fraunhoferhhi/vvenc
-        commit: 8fe23c75db1b7d1766d9f19d16995959d65c012e
+        commit: 513a4e925bf749acc5dddc77711c760c17ea7d8b
 
   - name: ffmpeg
     config-opts:
       - --enable-static
       - --enable-gpl
       - --enable-libdav1d
+      - --enable-libxml2
       - --enable-libopus
       - --enable-libvvenc
     buildsystem: autotools

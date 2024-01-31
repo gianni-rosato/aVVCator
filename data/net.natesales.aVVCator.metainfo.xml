@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <content_rating type="oars-1.1"/>
+
+  <id>net.natesales.aVVCator</id>
+  <launchable type="desktop-id">net.natesales.aVVCator.desktop</launchable>
+  <translation type="gettext">aVVCator</translation>
+
+  <name>avvcator</name>
+  <summary>VVC/AAC Video Encoder</summary>
+
+  <description>
+    <p>
+      aVVCator enables simple, easy-to-use video encoding for the Fraunhofer's most advanced video codec, VVC, powered by the VVenC encoder with FFmpeg AAC for audio encoding.
+    </p>
+  </description>
+
+  <custom>
+    <value key="GnomeSoftware::key-colors">[(237, 51, 59), (220, 138, 221)]</value>
+  </custom>
+
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+  </supports>
+
+  <provides>
+    <binary>avvcator</binary>
+  </provides>
+
+  <developer_name translatable="no">Gianni Rosato</developer_name>
+  <update_contact>grosatowork@proton.me</update_contact>
+
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/gianni-rosato/aviator/main/assets/aviator_welcome.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/gianni-rosato/aviator/main/assets/aviator_video.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/gianni-rosato/aviator/main/assets/aviator_audio.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/gianni-rosato/aviator/main/assets/aviator_output.png</image>
+    </screenshot>
+  </screenshots>
+
+  <releases>
+    <release version="0.0.1" date="2024-01-30">
+      <description translatable="no">
+        <p>Initial release</p>
+      </description>
+    </release>
+  </releases>
+
+  <url type="homepage">https://github.com/gianni-rosato/avvcator</url>
+  <url type="bugtracker">https://github.com/gianni-rosato/avvcator/issues</url>
+  <url type="vcs-browser">https://github.com/gianni-rosato/avvcator</url>
+  <url type="translate">https://github.com/gianni-rosato/avvcator/tree/main/po</url>
+  <url type="donation">https://github.com/gianni-rosato</url>
+</component>
