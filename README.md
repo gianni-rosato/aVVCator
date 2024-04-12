@@ -24,7 +24,7 @@ aVVCator is designed to be a no frills, easy to use AV1 encoding GUI that any be
 
 ### Flathub
 
-Aviator is available on FlTheathub. You can learn how to set up Flatpak on your distro of choice [here](https://flatpak.org/setup/).
+Aviator is available on Flathub. You can learn how to set up Flatpak on your distro of choice [here](https://flatpak.org/setup/).
 
 <a href="https://flathub.org/apps/details/net.natesales.Aviator"><img width="200" alt="Download on Flathub" src="https://flathub.org/assets/badges/flathub-badge-en.png"/></a>
 
