@@ -50,7 +50,7 @@ Hovering over most user configurable options in Aviator will produce a helpful t
 
 ### Video
 
-<img src="assets/aviator_video.webp" alt="Aviator Video Settings" width=480/>
+<img src="assets/avvcator_video.webp" alt="Aviator Video Settings" width=480/>
 
 By default, resolution will match your source's resolution. Manually changing one resolution value will automatically calculate the other based on the video's aspect ratio. Aviator's SVT-AV1-PSY speed preset is set to 6 by default, with a CRF (Constant Rate Factor) of 32. You can set CRF from 0 to 63 using the slider, with larger numerical values indicating smaller filesize at the expense of visual fidelity. Preset 6 offers a good balance between speed & compression efficiency at any CRF level.
 
@@ -58,7 +58,7 @@ The Grain Synth slider allows you to add artificial grain to your video to mimic
 
 ### Audio
 
-<img src="assets/aviator_audio.webp" alt="Aviator Audio Settings" width=480/>
+<img src="assets/avvcator_audio.webp" alt="Aviator Audio Settings" width=480/>
 
 Audio is reencoded even if the bitrate is set to be the same as the source audio. Audio is encoded to Opus, which is a highly efficient free audio codec that is often more better than older competitors like [AAC](https://wiki.x266.mov/docs/audio/AAC) & [MP3](https://wiki.x266.mov/docs/audio/MP3) audio. Because of Opus's incredible efficiency, audio tracks will be encoded at 80kb/s by default. Opus reaches audio transparency at around 128kb/s, which means the compressed audio will likely be impossible to distinguish from the source.
 
@@ -70,7 +70,7 @@ The Volume slider allows you to increase or decrease the output's volume. It is 
 
 ### Output
 
-<img src="assets/aviator_output.webp" alt="Aviator Output UI" width=480/>
+<img src="assets/avvcator_output.webp" alt="Aviator Output UI" width=480/>
 
 The container your video is stored in is associated with the file extension. Aviator offers two options for video output: the [Matroska](https://wiki.x266.mov/docs/introduction/terminology#mkv--mka--mks--mk3d) video container & the [WebM](https://wiki.x266.mov/docs/introduction/terminology#webm) container. The open-source Matroska container (.MKV) is Aviator's default container, a universal multimedia container with widespread video &amp; audio support. WebM is designed for web compatibility &amp; strips subtitles by default because of this. Both work out of the box with Aviator's AV1 video & Opus audio, but WebM output will be disabled if the Copy Audio switch is enabled because then we lose this format compliance assurance.
 
